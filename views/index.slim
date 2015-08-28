@@ -11,13 +11,13 @@ html
 
   javascript:
     var width = 960,
-            height = 136,
+            height = 960,
             cellSize = 11,
             format = d3.time.format("%Y-%m-%d");
 
     var colors = ['#ff0000', '#00ffff', '#ff8000', '#0080ff', '#ffff00', '#0000ff', '#80ff00', '#8000ff', '#00ff00', '#ff00ff', '#00ff80', '#ff0080'];
     var barPadding = 1;
-    var datasets = new Array(100);
+    var datasets = new Array(10000);
 
     var svg = d3.select("#svg")
             .append("svg")
@@ -29,11 +29,11 @@ html
             .enter()
             .append("rect")
             .attr("x", function (d, i) {
-              var col = Math.floor(i / 10);
+              var col = Math.floor(i / 100);
               return col * 11 + col * 2;
             })
             .attr("y", function (d, i) {
-              var row = i % 10;
+              var row = i % 100;
               return row * 11 + row * 2;
             })
             .attr("width", cellSize)
