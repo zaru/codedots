@@ -5,6 +5,7 @@ class WebApp < Sinatra::Base
   assets do
     serve '/js', from: 'bower_components/'
     serve '/css', from: 'bower_components/'
+    serve '/jso', from: 'assets/js/'
     serve '/scss', from: 'assets/scss/'
 
     js :application, [
