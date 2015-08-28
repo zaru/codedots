@@ -1,1 +1,46 @@
-|hoge
+doctype html
+html
+  head
+    title codedots
+    link media="all" rel="stylesheet" href="scss/style.css"
+    script src="js/d3/d3.min.js"
+
+  body
+    .container
+      #svg
+
+  javascript:
+    var width = 960,
+            height = 136,
+            cellSize = 11,
+            format = d3.time.format("%Y-%m-%d");
+
+    var colors = ['#ff0000', '#00ffff', '#ff8000', '#0080ff', '#ffff00', '#0000ff', '#80ff00', '#8000ff', '#00ff00', '#ff00ff', '#00ff80', '#ff0080'];
+    var barPadding = 1;
+    var datasets = new Array(100);
+
+    var svg = d3.select("#svg")
+            .append("svg")
+            .attr("width", width)
+            .attr("height", height);
+
+    var rect = svg.selectAll("rect")
+            .data(datasets)
+            .enter()
+            .append("rect")
+            .attr("x", function (d, i) {
+              var col = Math.floor(i / 10);
+              return col * 11 + col * 2;
+            })
+            .attr("y", function (d, i) {
+              var row = i % 10;
+              return row * 11 + row * 2;
+            })
+            .attr("width", cellSize)
+            .attr("height", cellSize)
+            .attr("class", function (d, i) {
+              return 'cell';
+            })
+            .attr("style", function (d, i) {
+              return 'fill: ' + colors[Math.floor(Math.random() * colors.length)];
+            });

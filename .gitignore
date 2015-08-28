@@ -3,3 +3,4 @@
 vendor/
 .bundle/
 bower_components/
+.sass-cache/
