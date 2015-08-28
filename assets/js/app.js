@@ -6,7 +6,7 @@ $(function() {
 
     var colors = ['#ff0000', '#00ffff', '#ff8000', '#0080ff', '#ffff00', '#0000ff', '#80ff00', '#8000ff', '#00ff00', '#ff00ff', '#00ff80', '#ff0080'];
     var barPadding = 4;
-    var dotNum = 10000;
+    var dotNum = 500;
     var dotRoot = Math.sqrt(dotNum);
     var datasets = new Array(dotNum);
 
@@ -32,10 +32,15 @@ $(function() {
         var count = 0;
         return function() {
             count = count + 1;
-            if (count % 15 == 0) {
+            if (count % 15 == 0 || count % 35 == 0) {
                 var idx = Math.floor(Math.random() * 11);
-                AUDIO_LIST[idx].play();
-                AUDIO_LIST[idx] = new Audio(AUDIO_LIST[idx].src);
+                //AUDIO_LIST[idx].play();
+                //AUDIO_LIST[idx] = new Audio(AUDIO_LIST[idx].src);
+            }
+
+            console.log("count = " + count + " / dotNum = " + dotNum);
+            if (count == dotNum) {
+                $('#download_button').show();
             }
         };
     };
@@ -44,7 +49,8 @@ $(function() {
     var svg = d3.select("#svg")
         .append("svg")
         .attr("width", width)
-        .attr("height", height);
+        .attr("height", height)
+        .attr("style", "width: " + width + "px; height: " + height + "px;");
 
     var rect = svg.selectAll("rect")
         .data(datasets)
@@ -83,8 +89,7 @@ $(function() {
             p();
         });
 
-
-    $('#button').click(function() {
+    $('#download_button').click(function() {
         downloadImage();
     });
 

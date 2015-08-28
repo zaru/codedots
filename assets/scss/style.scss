@@ -1,7 +1,51 @@
+@font-face {
+  font-family: 美咲ゴシック;
+  src: url('/fonts/misaki_gothic-webfont.woff')
+  format("woff");
+}
+
 html, body {
   margin: 0;
   padding: 0;
   background-color: #000;
+
+  color: #fff;
+  font-family: '美咲ゴシック';
+  src: url('/fonts/misaki_gothic-webfont.woff') format("woff");
+  -webkit-font-smoothing:none;
+}
+
+.container {
+  width: 80%;
+  margin: 20px auto;
+}
+h1 {
+  text-align: center;
+  font-size: 72px;
+  font-weight: bold;
+  margin: 0;
+  padding: 0;
+}
+h2 {
+  text-align: center;
+  font-size: 32px;
+  font-weight: normal;
+  margin: 0;
+  padding: 0;
+}
+
+#svg svg{
+  display: block;
+  margin: auto;
+}
+
+#drop_zone {
+  border: 5px dashed #fff;
+  padding:50px;
+  margin:20px;
+  font-size:24px;
+  color:#fff;
+  text-align:center;
 }
 
 .cell {
@@ -10,4 +54,25 @@ html, body {
   :hover {
     stroke: rgb(0, 0, 0);
   }
+}
+
+#button {
+  text-align: center;
+  min-height: 80px;
+}
+#download_button {
+  display: none;
+  font-size: 24px;
+  padding: 10px;
+  border: 1px solid #fff;
+  border-radius: 8px;
+  color: #fff;
+  background-color: #000;
+  font-family: '美咲ゴシック';
+  src: url('/fonts/misaki_gothic-webfont.woff') format("woff");
+  -webkit-font-smoothing:none;
+}
+#download_button:hover {
+  background-color: #fff;
+  color: #000;
 }
