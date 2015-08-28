@@ -13,37 +13,40 @@ html
   body
     .container
       button id="button"
-        |ボタン
+        |ダウンロード
       #svg
-      canvas id="canvas" width="130px" height="130px"
+      canvas id="canvas" width="130px" height="130px" style="background-color:#fff"
 
   javascript:
     var width = 960,
             height = 960,
-            cellSize = 11,
+            cellSize = 0,
             format = d3.time.format("%Y-%m-%d");
 
     var colors = ['#ff0000', '#00ffff', '#ff8000', '#0080ff', '#ffff00', '#0000ff', '#80ff00', '#8000ff', '#00ff00', '#ff00ff', '#00ff80', '#ff0080'];
-    var barPadding = 1;
-    var datasets = new Array(100);
+    var barPadding = 12;
+    var dotNum = 10000;
+    var dotRoot = Math.sqrt(dotNum);
+    var datasets = new Array(dotNum);
 
     var svg = d3.select("#svg")
             .append("svg")
             .attr("width", width)
             .attr("height", height);
 
-    var rect = svg.selectAll("rect")
+    var rect = svg.selectAll("circle")
             .data(datasets)
             .enter()
-            .append("rect")
-            .attr("x", function (d, i) {
-              var col = Math.floor(i / 10);
-              return col * 11 + col * 2;
+            .append("circle")
+            .attr("cx", function (d, i) {
+              var col = Math.floor(i / dotRoot);
+              return col * cellSize + (col + 1) * barPadding;
             })
-            .attr("y", function (d, i) {
-              var row = i % 10;
-              return row * 11 + row * 2;
+            .attr("cy", function (d, i) {
+              var row = i % dotRoot;
+              return row * cellSize + (row + 1) * barPadding;
             })
+            .attr("r", cellSize)
             .attr("width", cellSize)
             .attr("height", cellSize)
             .attr("class", function (d, i) {
@@ -51,6 +54,16 @@ html
             })
             .attr("style", function (d, i) {
               return 'fill: ' + colors[Math.floor(Math.random() * colors.length)];
+            })
+            .transition()
+            .delay(function(d, i) {
+              return i * 1;
+            })
+            .duration(function (d, i) {
+              return 500;
+            })
+            .attr("r", function(d) {
+              return 4;
             });
 
     $('#button').click(function() {
