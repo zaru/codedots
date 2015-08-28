@@ -3,11 +3,19 @@ html
   head
     title codedots
     link media="all" rel="stylesheet" href="scss/style.css"
+    script src="js/jquery/dist/jquery.min.js"
     script src="js/d3/d3.min.js"
+    script src="js/canvg/dist/canvg.bundle.min.js"
+    script src="js/canvg/dist/canvg.min.js"
+    script src="js/FileSaver/FileSaver.min.js"
+    script src="js/canvas-toBlob.js/canvas-toBlob.js"
 
   body
     .container
+      button id="button"
+        |ボタン
       #svg
+      canvas id="canvas" width="130px" height="130px"
 
   javascript:
     var width = 960,
@@ -17,7 +25,7 @@ html
 
     var colors = ['#ff0000', '#00ffff', '#ff8000', '#0080ff', '#ffff00', '#0000ff', '#80ff00', '#8000ff', '#00ff00', '#ff00ff', '#00ff80', '#ff0080'];
     var barPadding = 1;
-    var datasets = new Array(10000);
+    var datasets = new Array(100);
 
     var svg = d3.select("#svg")
             .append("svg")
@@ -29,11 +37,11 @@ html
             .enter()
             .append("rect")
             .attr("x", function (d, i) {
-              var col = Math.floor(i / 100);
+              var col = Math.floor(i / 10);
               return col * 11 + col * 2;
             })
             .attr("y", function (d, i) {
-              var row = i % 100;
+              var row = i % 10;
               return row * 11 + row * 2;
             })
             .attr("width", cellSize)
@@ -44,3 +52,21 @@ html
             .attr("style", function (d, i) {
               return 'fill: ' + colors[Math.floor(Math.random() * colors.length)];
             });
+
+    $('#button').click(function() {
+      downloadImage();
+      /*
+      var svgText = $('#svg')[0].innerHTML;
+      canvg('canvas', svgText);
+      document.getElementById('canvas').toDataURL();
+      $('#result').append('<a href="' + document.getElementById('canvas').toDataURL() + '">ダウンロード</a>');
+      */
+    });
+    function downloadImage() {
+      var svgText = $('#svg')[0].innerHTML;
+      canvg('canvas', svgText);
+      var canvas = document.getElementById('canvas');
+      canvas.toBlob(function (blob) {
+        saveAs(blob, "code.png");
+      }, "image/png");
+    }
