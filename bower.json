@@ -1,0 +1,16 @@
+{
+  "name": "codedots",
+  "version": "0.0.0",
+  "homepage": "https://github.com/zaru/codedots",
+  "authors": [
+    "zaru <sakuraba@basicinc.jp>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
