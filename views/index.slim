@@ -15,38 +15,41 @@ html
       button id="button"
         |ダウンロード
       #svg
-      canvas id="canvas" width="130px" height="130px" style="background-color:#fff"
+      canvas id="canvas"
 
   javascript:
-    var width = 960,
-            height = 960,
-            cellSize = 0,
+    var cellSize = 0,
+            cellMaxSize = 1,
             format = d3.time.format("%Y-%m-%d");
 
     var colors = ['#ff0000', '#00ffff', '#ff8000', '#0080ff', '#ffff00', '#0000ff', '#80ff00', '#8000ff', '#00ff00', '#ff00ff', '#00ff80', '#ff0080'];
-    var barPadding = 12;
+    var barPadding = 4;
     var dotNum = 10000;
     var dotRoot = Math.sqrt(dotNum);
     var datasets = new Array(dotNum);
+
+    var width = dotRoot * cellMaxSize + (dotRoot - 1) * (barPadding - 1);
+    var height = dotRoot * cellMaxSize + (dotRoot - 1) * (barPadding - 1);
+
+
 
     var svg = d3.select("#svg")
             .append("svg")
             .attr("width", width)
             .attr("height", height);
 
-    var rect = svg.selectAll("circle")
+    var rect = svg.selectAll("rect")
             .data(datasets)
             .enter()
-            .append("circle")
-            .attr("cx", function (d, i) {
+            .append("rect")
+            .attr("x", function (d, i) {
               var col = Math.floor(i / dotRoot);
-              return col * cellSize + (col + 1) * barPadding;
+              return col * cellSize + (col + 0) * barPadding;
             })
-            .attr("cy", function (d, i) {
+            .attr("y", function (d, i) {
               var row = i % dotRoot;
-              return row * cellSize + (row + 1) * barPadding;
+              return row * cellSize + (row + 0) * barPadding;
             })
-            .attr("r", cellSize)
             .attr("width", cellSize)
             .attr("height", cellSize)
             .attr("class", function (d, i) {
@@ -62,22 +65,21 @@ html
             .duration(function (d, i) {
               return 500;
             })
-            .attr("r", function(d) {
-              return 4;
+            .attr("width", function(d) {
+              return cellMaxSize;
+            })
+            .attr("height", function (d) {
+              return cellMaxSize;
             });
 
     $('#button').click(function() {
       downloadImage();
-      /*
-      var svgText = $('#svg')[0].innerHTML;
-      canvg('canvas', svgText);
-      document.getElementById('canvas').toDataURL();
-      $('#result').append('<a href="' + document.getElementById('canvas').toDataURL() + '">ダウンロード</a>');
-      */
     });
+
     function downloadImage() {
       var svgText = $('#svg')[0].innerHTML;
       canvg('canvas', svgText);
+
       var canvas = document.getElementById('canvas');
       canvas.toBlob(function (blob) {
         saveAs(blob, "code.png");
