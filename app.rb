@@ -20,6 +20,10 @@ class WebApp < Sinatra::Base
     css_compression :scss
   end
 
+  configure do
+    set :public_folder, File.dirname(__FILE__) + '/public'
+  end
+
   before do
   end
 
