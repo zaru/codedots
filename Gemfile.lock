@@ -9,6 +9,7 @@ GEM
       rack
     rack-test (0.6.3)
       rack (>= 1.0)
+    rmagick (2.15.4)
     sass (3.4.18)
     sinatra (1.4.6)
       rack (~> 1.4)
@@ -36,6 +37,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  rmagick
   sass
   sinatra
   sinatra-assetpack

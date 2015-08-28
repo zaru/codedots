@@ -7,3 +7,5 @@ gem "sinatra-assetpack"
 gem "sass"
 
 gem "slim"
+
+gem "rmagick"
