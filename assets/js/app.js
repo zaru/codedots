@@ -14,8 +14,32 @@ $(function() {
     var height = dotRoot * cellMaxSize + (dotRoot - 1) * (barPadding - 1);
 
     var AUDIO_LIST = {
-        "se00": new Audio("sound/button70.mp3"),
+        "0": new Audio("sound/button07.mp3"),
+        "1": new Audio("sound/button11.mp3"),
+        "2": new Audio("sound/button14.mp3"),
+        "3": new Audio("sound/button15.mp3"),
+        "4": new Audio("sound/button18.mp3"),
+        "5": new Audio("sound/button19.mp3"),
+        "6": new Audio("sound/button23.mp3"),
+        "7": new Audio("sound/button25.mp3"),
+        "8": new Audio("sound/button26.mp3"),
+        "9": new Audio("sound/button33.mp3"),
+        "10": new Audio("sound/button39.mp3"),
+        "11": new Audio("sound/button70.mp3"),
     };
+
+    var playSound = function() {
+        var count = 0;
+        return function() {
+            count = count + 1;
+            if (count % 15 == 0) {
+                var idx = Math.floor(Math.random() * 11);
+                AUDIO_LIST[idx].play();
+                AUDIO_LIST[idx] = new Audio(AUDIO_LIST[idx].src);
+            }
+        };
+    };
+    var p = playSound();
 
     var svg = d3.select("#svg")
         .append("svg")
@@ -55,16 +79,10 @@ $(function() {
         .attr("height", function (d) {
             return cellMaxSize;
         })
-        .each("end", myCallback);
+        .each("end", function () {
+            p();
+        });
 
-    function myCallback() {
-        //console.log(Math.floor(new Date().getTime() / 1000));
-        /*
-         var data = "se00";
-         AUDIO_LIST[data].play();
-         AUDIO_LIST[data] = new Audio(AUDIO_LIST[data].src);
-         */
-    }
 
     $('#button').click(function() {
         downloadImage();
