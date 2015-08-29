@@ -35,6 +35,10 @@ class WebApp < Sinatra::Base
     slim :index
   end
 
+  get '/ref' do
+    slim :ref
+  end
+
   post '/parse' do
     if params[:files][0][:type] == 'image/png'
       puts params[:files][0][:tempfile].path

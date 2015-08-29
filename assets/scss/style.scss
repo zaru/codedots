@@ -16,15 +16,24 @@ html, body {
 }
 
 pre {
-  width: 80%;
   margin: auto;
   color: #fff;
   font-family: '美咲ゴシック';
   src: url('/fonts/misaki_gothic-webfont.woff') format("woff");
   -webkit-font-smoothing:none;
-  font-size: 24px;
+  font-size: 20px;
 }
 
+#nav {
+  text-align: right;
+  padding: 0 20px 0 0;
+  a {
+    color: #fff;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
 .container {
   width: 80%;
   margin: 20px auto;
@@ -42,6 +51,10 @@ h2 {
   font-weight: normal;
   margin: 0;
   padding: 0;
+}
+h3 {
+  text-align: center;
+  padding : 10px;
 }
 
 #svg svg{
@@ -85,4 +98,22 @@ canvas {
 #download_button:hover {
   background-color: #fff;
   color: #000;
+}
+
+.ref {
+  overflow: hidden;
+  li {
+    width : 120px;
+    float:left;
+    overflow: hidden;
+    list-style-type: none;
+    padding :10px ;
+  }
+  i {
+    display: block;
+    float: left;
+    width : 30px;
+    height: 30px;
+    margin: 0 10px 0 0;
+  }
 }

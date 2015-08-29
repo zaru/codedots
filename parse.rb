@@ -82,7 +82,7 @@ class ParseCode
       "y" => "#6495ed",
       "z" => "#00ff7f",
       "A" => "#cd853f",
-      "B" => "#ff00ff",
+      "B" => "#cc00cc",
       "C" => "#ffefd5",
       "D" => "#00bfff",
       "E" => "#00fa9a",
