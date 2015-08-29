@@ -19,6 +19,7 @@
     "jquery": "~2.1.4",
     "FileSaver": "*",
     "canvas-toBlob.js": "~0.1.3",
-    "jquery-grab-bag": "*"
+    "jquery-grab-bag": "*",
+    "highlightjs": "~8.7.0"
   }
 }

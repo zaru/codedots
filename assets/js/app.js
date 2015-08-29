@@ -162,14 +162,16 @@ function uploadFiles(files) {
         contentType: false,
         dataType: 'json',
         success: function(data) {
-            console.log('ファイルがアップロードされました。');
-            console.log(data);
             if (data['kind'] == 'code') {
                 console.log(data['code']);
+                $('#code').show();
                 $('#code').text(data['code']);
                 $("#code").typewrite({
                     callback: function() {
                         AUDIO_LIST['TYPE'].pause();
+                        $('pre code').each(function(i, block) {
+                            hljs.highlightBlock(block);
+                        });
                     }
                 });
                 AUDIO_LIST['TYPE'].loop = true;
