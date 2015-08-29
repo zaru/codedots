@@ -1,3 +1,5 @@
+require './parse.rb'
+
 class WebApp < Sinatra::Base
 
   register Sinatra::AssetPack
@@ -30,6 +32,14 @@ class WebApp < Sinatra::Base
 
   get '/' do
     slim :index
+  end
+
+  post '/parse' do
+    @params = params
+
+    @result = ParseCode.execute(params[:code_text])
+
+    slim :parse
   end
 
 end
