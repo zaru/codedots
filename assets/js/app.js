@@ -172,6 +172,7 @@ $(function() {
     });
 
     $('#drop_zone').bind('drop', function(e){
+        $('#drop_zone').css('background-color', '#000000');
         // デフォルトの挙動を停止
         e.preventDefault();
 
@@ -181,10 +182,9 @@ $(function() {
         uploadFiles(files);
 
     }).bind('dragenter', function(){
-        // デフォルトの挙動を停止
         return false;
     }).bind('dragover', function(){
-        // デフォルトの挙動を停止
+        $('#drop_zone').css('background-color', '#e81052');
         return false;
     });
 });
