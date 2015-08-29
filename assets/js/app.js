@@ -1,7 +1,7 @@
 function drawCode(colors) {
 
     var cellSize = 0,
-        cellMaxSize = 10
+        cellMaxSize = 3
 
     var barPadding = 12;
     var dotNum = colors.length;
@@ -161,7 +161,11 @@ function uploadFiles(files) {
         success: function(data) {
             console.log('ファイルがアップロードされました。');
             console.log(data);
-            drawCode(data);
+            if (data['kind'] == 'code') {
+                console.log(data['code']);
+            } else {
+                drawCode(data['color']);
+            }
         }
     });
 }

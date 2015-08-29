@@ -1,4 +1,5 @@
 require './parse.rb'
+require './parse_png.rb'
 
 class WebApp < Sinatra::Base
 
@@ -35,7 +36,12 @@ class WebApp < Sinatra::Base
   end
 
   post '/parse' do
-    ParseCode.execute(File.read(params[:files][0][:tempfile]))
+    if params[:files][0][:type] == 'image/png'
+      puts params[:files][0][:tempfile].path
+      ParsePng.execute(params[:files][0][:tempfile].path)
+    else
+      ParseCode.execute(File.read(params[:files][0][:tempfile]))
+    end
   end
 
 end

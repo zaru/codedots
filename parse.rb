@@ -4,10 +4,10 @@ require 'json'
 class ParseCode
 
   @const_colors = {
-      :on_nl => '#FF0000',
+      :on_nl => '#cd0000',
       :on_sp => '#CCCCCC',
-      :on_tstring_beg => '#FFFF00',
-      :on_tstring_bend => '#00FFFF',
+      :on_tstring_beg => '#FFF000',
+      :on_tstring_bend => '#000FFF',
   }
 
   @colors = {
@@ -126,7 +126,7 @@ class ParseCode
           if @alphaColors.has_key?(word.hex.chr)
             color_lists << @alphaColors[word.hex.chr]
           else
-            color_lists << '#%06X' % (word.hex ** 2)
+            color_lists << '#%06X' % (word.hex)
           end
         end
         color_lists << '#FFFFFF'
@@ -136,13 +136,13 @@ class ParseCode
           if @alphaColors.has_key?(word.hex.chr)
             color_lists << @alphaColors[word.hex.chr]
           else
-            color_lists << '#%06X' % (word.hex ** 2)
+            color_lists << '#%06X' % (word.hex)
           end
         end
       end
     end
     # color_lists.map{|c| '"%s"' % c }.join(',')
-    JSON.generate(color_lists)
+    JSON.generate({kind: 'color', color: color_lists})
   end
 
 end
