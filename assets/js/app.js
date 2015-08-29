@@ -1,3 +1,20 @@
+
+var AUDIO_LIST = {
+    "SYS_KEY": new Audio("sound/button07.mp3"),
+    "TYPE": new Audio("sound/meka_ge_keyborad01.mp3"),
+    "1": new Audio("sound/button11.mp3"),
+    "2": new Audio("sound/button14.mp3"),
+    "3": new Audio("sound/button15.mp3"),
+    "4": new Audio("sound/button18.mp3"),
+    "5": new Audio("sound/button19.mp3"),
+    "6": new Audio("sound/button23.mp3"),
+    "7": new Audio("sound/button25.mp3"),
+    "8": new Audio("sound/button26.mp3"),
+    "9": new Audio("sound/button33.mp3"),
+    "10": new Audio("sound/button39.mp3"),
+    "11": new Audio("sound/button70.mp3"),
+};
+
 function drawCode(colors) {
 
     var cellSize = 0,
@@ -55,20 +72,6 @@ function drawCode(colors) {
         "#FFFF00" : "SYS_KEY",
         "#FF69B4" : "SYS_KEY",
         "#000080" : "SYS_KEY"
-    };
-    var AUDIO_LIST = {
-        "SYS_KEY": new Audio("sound/button07.mp3"),
-        "1": new Audio("sound/button11.mp3"),
-        "2": new Audio("sound/button14.mp3"),
-        "3": new Audio("sound/button15.mp3"),
-        "4": new Audio("sound/button18.mp3"),
-        "5": new Audio("sound/button19.mp3"),
-        "6": new Audio("sound/button23.mp3"),
-        "7": new Audio("sound/button25.mp3"),
-        "8": new Audio("sound/button26.mp3"),
-        "9": new Audio("sound/button33.mp3"),
-        "10": new Audio("sound/button39.mp3"),
-        "11": new Audio("sound/button70.mp3"),
     };
 
     function playSound() {
@@ -163,6 +166,14 @@ function uploadFiles(files) {
             console.log(data);
             if (data['kind'] == 'code') {
                 console.log(data['code']);
+                $('#code').text(data['code']);
+                $("#code").typewrite({
+                    callback: function() {
+                        AUDIO_LIST['TYPE'].pause();
+                    }
+                });
+                AUDIO_LIST['TYPE'].loop = true;
+                AUDIO_LIST['TYPE'].play();
             } else {
                 drawCode(data['color']);
             }
