@@ -35,11 +35,7 @@ class WebApp < Sinatra::Base
   end
 
   post '/parse' do
-    @params = params
-
-    @result = ParseCode.execute(params[:code_text])
-
-    slim :parse
+    ParseCode.execute(File.read(params[:files][0][:tempfile]))
   end
 
 end

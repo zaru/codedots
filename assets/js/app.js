@@ -1,17 +1,17 @@
-
-
 function drawCode(colors) {
 
     var cellSize = 0,
-        cellMaxSize = 6;
+        cellMaxSize = 10
 
     var barPadding = 12;
     var dotNum = colors.length;
-    var dotRoot = Math.floor(Math.sqrt(dotNum));
+    var dotRoot = Math.ceil(Math.sqrt(dotNum));
     var datasets =colors;
 
-    var width = dotRoot * cellMaxSize + (dotRoot - 1) * (barPadding - 1);
-    var height = dotRoot * cellMaxSize + (dotRoot - 1) * (barPadding - 1);
+    console.log(colors.length);
+    console.log(dotRoot);
+    var width = dotRoot * cellMaxSize + (dotRoot) * (barPadding - cellMaxSize);
+    var height = dotRoot * cellMaxSize + (dotRoot) * (barPadding - cellMaxSize);
 
     var COM_LIST = {
         "#000000" : "SYS_KEY",
@@ -75,7 +75,6 @@ function drawCode(colors) {
         var count = 0;
         return function(color) {
             color = color.toUpperCase();
-            console.log(color);
             count = count + 1;
             if (color in COM_LIST) {
                 AUDIO_LIST[COM_LIST[color]].play();
@@ -84,8 +83,6 @@ function drawCode(colors) {
                 AUDIO_LIST[idx].play();
                 AUDIO_LIST[idx] = new Audio(AUDIO_LIST[idx].src);
             }
-
-            //console.log("count = " + count + " / dotNum = " + dotNum);
             if (count == dotNum) {
                 $('#download_button').show();
             }
@@ -117,7 +114,7 @@ function drawCode(colors) {
             return 'cell';
         })
         .attr("style", function (d, i) {
-            return 'fill: ' + colors[Math.floor(Math.random() * colors.length)];
+            return 'fill: ' + d;
         })
         .transition()
         .delay(function(d, i) {
@@ -137,12 +134,8 @@ function drawCode(colors) {
         });
 }
 
-
-$('#download_button').click(function() {
-    downloadImage();
-});
-
 function downloadImage() {
+    console.log('hoge');
     var svgText = $('#svg')[0].innerHTML;
     canvg('canvas', svgText);
 
@@ -151,3 +144,47 @@ function downloadImage() {
         saveAs(blob, "code.png");
     }, "image/png");
 }
+
+function uploadFiles(files) {
+    var fd = new FormData();
+    var filesLength = files.length;
+    for (var i = 0; i < filesLength; i++) {
+        fd.append("files[]", files[i]);
+    }
+    $.ajax({
+        url: '/parse',
+        type: 'POST',
+        data: fd,
+        processData: false,
+        contentType: false,
+        dataType: 'json',
+        success: function(data) {
+            console.log('ファイルがアップロードされました。');
+            console.log(data);
+            drawCode(data);
+        }
+    });
+}
+
+$(function() {
+    $('#download_button').click(function() {
+        downloadImage();
+    });
+
+    $('#drop_zone').bind('drop', function(e){
+        // デフォルトの挙動を停止
+        e.preventDefault();
+
+        // ファイル情報を取得
+        var files = e.originalEvent.dataTransfer.files;
+        console.log(files);
+        uploadFiles(files);
+
+    }).bind('dragenter', function(){
+        // デフォルトの挙動を停止
+        return false;
+    }).bind('dragover', function(){
+        // デフォルトの挙動を停止
+        return false;
+    });
+});

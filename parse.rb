@@ -1,4 +1,5 @@
 require 'Ripper'
+require 'json'
 
 class ParseCode
 
@@ -125,7 +126,7 @@ class ParseCode
           if @alphaColors.has_key?(word.hex.chr)
             color_lists << @alphaColors[word.hex.chr]
           else
-            color_lists << '#%06X' % (word.hex ** 3)
+            color_lists << '#%06X' % (word.hex ** 2)
           end
         end
         color_lists << '#FFFFFF'
@@ -135,13 +136,13 @@ class ParseCode
           if @alphaColors.has_key?(word.hex.chr)
             color_lists << @alphaColors[word.hex.chr]
           else
-            color_lists << '#%06X' % (word.hex ** 3)
+            color_lists << '#%06X' % (word.hex ** 2)
           end
         end
       end
     end
-
-    color_lists
+    # color_lists.map{|c| '"%s"' % c }.join(',')
+    JSON.generate(color_lists)
   end
 
 end
