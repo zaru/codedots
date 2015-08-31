@@ -1,4 +1,4 @@
-require 'Ripper'
+require 'ripper'
 require 'json'
 
 class ParseCode
