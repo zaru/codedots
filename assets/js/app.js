@@ -121,10 +121,10 @@ function drawCode(colors) {
         })
         .transition()
         .delay(function(d, i) {
-            return i * 10;
+            return i * 5;
         })
         .duration(function (d, i) {
-            return 1500;
+            return 250;
         })
         .attr("width", function(d) {
             return cellMaxSize;
